@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import ProductValidation from './product.validation';
 import { ZodError } from 'zod';
 import { handleValidationError } from './product.errorHandler';
+import process from 'process';
 
 // Create Product Controller
 const createProductController = async (req: Request, res: Response) => {
@@ -23,15 +24,26 @@ const createProductController = async (req: Request, res: Response) => {
       res.status(400).json(formattedError);
     }
 
-    res.status(500).json({
-      message: (error as any)?.message,
+    const formattedError = {
+      message: 'Validation failed',
       status: false,
-      name: 'ValidatorError',
       error: {
-        message: (error as any)?.message,
+        name: 'ValidatorError',
+        errors: {
+          message: (error as any)?.message,
+          name: 'ValidatorError',
+          properties: {
+            message: (error as any)?.message,
+            type: (error as any)?.code,
+          },
+          kind: (error as any)?.code,
+          path: (error as any)?.path,
+          value: (error as any)?.code,
+        },
       },
-      stack: (error as Error)?.stack,
-    });
+      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+    };
+    res.status(500).json(formattedError);
   }
 };
 
@@ -48,20 +60,65 @@ const getAllProductsController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    if (error instanceof ZodError) {
-      const formattedError = handleValidationError(error);
-      res.status(400).json(formattedError);
-    }
+    // Handle the error
 
-    res.status(500).json({
-      message: (error as any)?.message,
+    const formattedError = {
+      message: 'Validation failed',
       status: false,
-      name: 'ValidatorError',
       error: {
-        message: (error as any)?.message,
+        name: 'ValidatorError',
+        errors: {
+          message: (error as any)?.message,
+          name: 'ValidatorError',
+          properties: {
+            message: (error as any)?.message,
+            type: (error as any)?.code,
+          },
+          kind: (error as any)?.code,
+          path: (error as any)?.path,
+          value: (error as any)?.code,
+        },
       },
-      stack: (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+    };
+    res.status(500).json(formattedError);
+  }
+};
+
+// Get single product
+const getSingleProductController = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.productId;
+    const result = await ProductService.getSingleProductFromDB(id);
+
+    res.status(200).json({
+      status: true,
+      message: 'Bike retrieved successfully',
+      data: result,
     });
+  } catch (error) {
+    // Handle the error
+
+    const formattedError = {
+      message: 'Validation failed',
+      status: false,
+      error: {
+        name: 'ValidatorError',
+        errors: {
+          message: (error as any)?.message,
+          name: 'ValidatorError',
+          properties: {
+            message: (error as any)?.message,
+            type: (error as any)?.code,
+          },
+          kind: (error as any)?.code,
+          path: (error as any)?.path,
+          value: (error as any)?.code,
+        },
+      },
+      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+    };
+    res.status(500).json(formattedError);
   }
 };
 
@@ -69,4 +126,5 @@ const getAllProductsController = async (req: Request, res: Response) => {
 export const ProductController = {
   createProductController,
   getAllProductsController,
+  getSingleProductController,
 };
