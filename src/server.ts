@@ -4,10 +4,7 @@ import config from './app/config';
 
 async function main() {
   try {
-    if (!config.database_url) {
-      throw new Error('Database URL is not defined');
-    }
-    await mongoose.connect(config.database_url);
+    await mongoose.connect(config.database_url as string);
 
     app.listen(config.port, () => {
       console.log(`Server is running on port ${config.port}`);
