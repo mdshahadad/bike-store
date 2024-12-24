@@ -12,5 +12,8 @@ route.get('/', ProductController.getAllProductsController);
 // Get single product
 route.get('/:productId', ProductController.getSingleProductController);
 
+// Update single product
+route.put('/:productId', ProductController.updateSingleProductController);
+
 // Export the route
 export const ProductRoute = route;

@@ -30,9 +30,16 @@ const getSingleProductFromDB = async (id: string) => {
   return result;
 };
 
+// Update single product from DB
+const updateSingleProductFromDB = async (id: string, payload: TProduct) => {
+  const result = await Product.findByIdAndUpdate(id, payload, { new: true });
+  return result;
+};
+
 // Export the service
 export const ProductService = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
+  updateSingleProductFromDB,
 };

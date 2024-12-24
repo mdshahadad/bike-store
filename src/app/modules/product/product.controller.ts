@@ -122,9 +122,52 @@ const getSingleProductController = async (req: Request, res: Response) => {
   }
 };
 
+// Update single product
+const updateSingleProductController = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.productId;
+    const productData = req.body;
+
+    const result = await ProductService.updateSingleProductFromDB(
+      id,
+      productData,
+    );
+
+    res.status(200).json({
+      status: true,
+      message: 'Bike updated successfully',
+      data: result,
+    });
+  } catch (error) {
+    // Handle the error
+
+    const formattedError = {
+      message: 'Validation failed',
+      status: false,
+      error: {
+        name: 'ValidatorError',
+        errors: {
+          message: (error as any)?.message,
+          name: 'ValidatorError',
+          properties: {
+            message: (error as any)?.message,
+            type: (error as any)?.code,
+          },
+          kind: (error as any)?.code,
+          path: (error as any)?.path,
+          value: (error as any)?.code,
+        },
+      },
+      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+    };
+    res.status(500).json(formattedError);
+  }
+};
+
 // Export the controller
 export const ProductController = {
   createProductController,
   getAllProductsController,
   getSingleProductController,
+  updateSingleProductController,
 };
