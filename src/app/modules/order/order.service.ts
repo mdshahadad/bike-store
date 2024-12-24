@@ -10,16 +10,17 @@ const createOrderIntoDB = async (order: TOrder) => {
     throw new Error('Product not found');
   }
 
-  if (
-    !hasProduct.inStock ||
-    hasProduct.quantity < 0 ||
-    hasProduct.quantity < quantity
-  ) {
+  if (!hasProduct.inStock || hasProduct.quantity < 0) {
     throw new Error(`The ${hasProduct.name} is out of stock now`);
   }
 
+  if (hasProduct.quantity < quantity) {
+    throw new Error(
+      `The ${hasProduct.name} quantity has only ${hasProduct.quantity} left. But you want to buy ${quantity}`,
+    );
+  }
+
   const reducedQuantity = hasProduct.quantity - quantity;
-  //   console.log(reducedQuantity);
 
   if (reducedQuantity === 0) {
     await Product.findByIdAndUpdate(

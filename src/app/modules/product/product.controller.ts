@@ -41,7 +41,7 @@ const createProductController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }
@@ -81,7 +81,7 @@ const getAllProductsController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }
@@ -118,7 +118,7 @@ const getSingleProductController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }
@@ -160,7 +160,7 @@ const updateSingleProductController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }
@@ -178,6 +178,10 @@ const deleteSingleProductController = async (req: Request, res: Response) => {
       data: {},
     });
   } catch (error) {
+    if (error instanceof ZodError) {
+      const formattedError = handleValidationError(error);
+      res.status(400).json(formattedError);
+    }
     const formattedError = {
       message: 'Validation failed',
       status: false,
@@ -195,7 +199,7 @@ const deleteSingleProductController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }

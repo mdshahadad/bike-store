@@ -44,6 +44,6 @@ export const handleValidationError = (error: ZodError) => {
       name: 'ValidationError',
       errors: validationErrors,
     },
-    stack: process.env.NODE_ENV === 'development' && error.stack,
+    stack: process.env.NODE_ENV === 'production' && error.stack,
   };
 };

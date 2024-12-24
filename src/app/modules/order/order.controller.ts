@@ -40,7 +40,7 @@ const createOrderController = async (req: Request, res: Response) => {
           value: (error as any)?.code,
         },
       },
-      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+      stack: process.env.NODE_ENV === 'production' && (error as Error)?.stack,
     };
     res.status(404).json(formattedError);
   }
@@ -50,10 +50,12 @@ const createOrderController = async (req: Request, res: Response) => {
 const calculateRevenueController = async (req: Request, res: Response) => {
   try {
     const result = await OrderService.calculateRevenue();
+    const totalRevenue = result[0].totalRevenue;
+
     res.status(200).json({
       status: true,
       message: 'Revenue calculated successfully',
-      data: result,
+      data: { totalRevenue },
     });
   } catch (error) {
     res.status(404).json({
