@@ -27,12 +27,35 @@ const getAllProductsFromDB = async (query: any) => {
 // Get single product from DB
 const getSingleProductFromDB = async (id: string) => {
   const result = await Product.findById(id);
+
+  if (!result) {
+    throw new Error(`Product Id: ${id} is not found`);
+  }
+
   return result;
 };
 
 // Update single product from DB
 const updateSingleProductFromDB = async (id: string, payload: TProduct) => {
   const result = await Product.findByIdAndUpdate(id, payload, { new: true });
+
+  if (!result) {
+    throw new Error(`Product Id: ${id} is not found`);
+  }
+
+  return result;
+};
+
+// Delete single product from DB
+const deleteSingleProductFromDB = async (id: string) => {
+  console.log(id);
+  const result = await Product.findByIdAndDelete(id);
+  console.log('Result: ', result);
+
+  if (!result) {
+    throw new Error(`Product Id: ${id} is not found`);
+  }
+
   return result;
 };
 
@@ -42,4 +65,5 @@ export const ProductService = {
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateSingleProductFromDB,
+  deleteSingleProductFromDB,
 };

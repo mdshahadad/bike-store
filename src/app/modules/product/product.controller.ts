@@ -164,10 +164,48 @@ const updateSingleProductController = async (req: Request, res: Response) => {
   }
 };
 
+// Delete single product
+const deleteSingleProductController = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.productId;
+    console.log(id);
+    const result = await ProductService.deleteSingleProductFromDB(id);
+    console.log(result);
+
+    res.status(200).json({
+      status: true,
+      message: 'Bike deleted successfully',
+      data: {},
+    });
+  } catch (error) {
+    const formattedError = {
+      message: 'Validation failed',
+      status: false,
+      error: {
+        name: 'ValidatorError',
+        errors: {
+          message: (error as any)?.message,
+          name: 'ValidatorError',
+          properties: {
+            message: (error as any)?.message,
+            type: (error as any)?.code,
+          },
+          kind: (error as any)?.code,
+          path: (error as any)?.path,
+          value: (error as any)?.code,
+        },
+      },
+      stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
+    };
+    res.status(500).json(formattedError);
+  }
+};
+
 // Export the controller
 export const ProductController = {
   createProductController,
   getAllProductsController,
   getSingleProductController,
   updateSingleProductController,
+  deleteSingleProductController,
 };

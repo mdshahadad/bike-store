@@ -6,7 +6,6 @@ const ProductSchema = new Schema<TProduct>(
     name: {
       type: String,
       required: true,
-      unique: [true, 'Product Name cannot be duplicated'],
       trim: true,
     },
     brand: {
