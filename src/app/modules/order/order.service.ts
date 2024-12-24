@@ -3,7 +3,7 @@ import { TOrder } from './order.interface';
 import Order from './order.model';
 
 const createOrderIntoDB = async (order: TOrder) => {
-  const { email, product, quantity, totalPrice } = order;
+  const { product, quantity } = order;
 
   const hasProduct = await Product.findById(product);
   if (!hasProduct) {
@@ -11,26 +11,24 @@ const createOrderIntoDB = async (order: TOrder) => {
   }
 
   if (!hasProduct.inStock) {
-    throw new Error('Product out of stock');
+    throw new Error(`The ${hasProduct.name} is out of stock now`);
   }
 
   const reducedQuantity = hasProduct.quantity - quantity;
-  console.log(reducedQuantity);
+  //   console.log(reducedQuantity);
 
   if (reducedQuantity === 0) {
-    const updateStock = await Product.findByIdAndUpdate(
+    await Product.findByIdAndUpdate(
       hasProduct._id,
       { quantity: reducedQuantity, inStock: false },
       { new: true },
     );
-    console.log('UpdateStock:', updateStock);
   } else {
-    const updateProduct = await Product.findByIdAndUpdate(
+    await Product.findByIdAndUpdate(
       hasProduct._id,
       { quantity: reducedQuantity },
       { new: true },
     );
-    console.log('UpdateProduct:', updateProduct);
   }
 
   const result = await Order.create(order);
