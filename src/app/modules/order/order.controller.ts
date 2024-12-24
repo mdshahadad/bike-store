@@ -42,7 +42,7 @@ const createOrderController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 
@@ -56,7 +56,7 @@ const calculateRevenueController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(404).json({
       status: false,
       message: 'Failed to calculate revenue',
       error: (error as Error)?.message,

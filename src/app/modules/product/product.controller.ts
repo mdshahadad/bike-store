@@ -43,7 +43,7 @@ const createProductController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 
@@ -51,7 +51,6 @@ const createProductController = async (req: Request, res: Response) => {
 const getAllProductsController = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query;
-    console.log('SearchTerm: ', searchTerm);
     const result = await ProductService.getAllProductsFromDB(searchTerm);
 
     res.status(200).json({
@@ -60,7 +59,10 @@ const getAllProductsController = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    // Handle the error
+    if (error instanceof ZodError) {
+      const formattedError = handleValidationError(error);
+      res.status(400).json(formattedError);
+    }
 
     const formattedError = {
       message: 'Validation failed',
@@ -81,7 +83,7 @@ const getAllProductsController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 
@@ -118,7 +120,7 @@ const getSingleProductController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 
@@ -160,7 +162,7 @@ const updateSingleProductController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 
@@ -195,7 +197,7 @@ const deleteSingleProductController = async (req: Request, res: Response) => {
       },
       stack: process.env.NODE_ENV === 'development' && (error as Error)?.stack,
     };
-    res.status(500).json(formattedError);
+    res.status(404).json(formattedError);
   }
 };
 

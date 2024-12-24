@@ -10,7 +10,11 @@ const createOrderIntoDB = async (order: TOrder) => {
     throw new Error('Product not found');
   }
 
-  if (!hasProduct.inStock) {
+  if (
+    !hasProduct.inStock ||
+    hasProduct.quantity < 0 ||
+    hasProduct.quantity < quantity
+  ) {
     throw new Error(`The ${hasProduct.name} is out of stock now`);
   }
 

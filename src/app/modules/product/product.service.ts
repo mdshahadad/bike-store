@@ -21,6 +21,11 @@ const getAllProductsFromDB = async (query: any) => {
     };
   }
   const result = await Product.find(filter);
+
+  if (result.length === 0) {
+    throw new Error('No product found');
+  }
+
   return result;
 };
 
