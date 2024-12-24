@@ -48,9 +48,7 @@ const updateSingleProductFromDB = async (id: string, payload: TProduct) => {
 
 // Delete single product from DB
 const deleteSingleProductFromDB = async (id: string) => {
-  console.log(id);
   const result = await Product.findByIdAndDelete(id);
-  console.log('Result: ', result);
 
   if (!result) {
     throw new Error(`Product Id: ${id} is not found`);

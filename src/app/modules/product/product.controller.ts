@@ -168,9 +168,7 @@ const updateSingleProductController = async (req: Request, res: Response) => {
 const deleteSingleProductController = async (req: Request, res: Response) => {
   try {
     const id = req.params.productId;
-    console.log(id);
-    const result = await ProductService.deleteSingleProductFromDB(id);
-    console.log(result);
+    await ProductService.deleteSingleProductFromDB(id);
 
     res.status(200).json({
       status: true,
