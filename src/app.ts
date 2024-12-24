@@ -13,7 +13,7 @@ app.use('/api/products', ProductRoute);
 app.use('/api/orders', OrderRoute);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('This is the Bike Store server');
 });
 
 export default app;
