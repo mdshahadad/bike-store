@@ -34,7 +34,7 @@ npm run start:dev
 ## Features
 
 ### 1. **Product Management**
-- Full **CRUD Operations**:  
+- **CRUD Operations**:  
   Allows the creation, retrieval, updating, and deletion of product data in the inventory.  
   - Example Use Cases:
     - Adding new bike models.
