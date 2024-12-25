@@ -36,10 +36,10 @@ npm run start:dev
 ## Technology i used for this project
 
 * **TypeScript**: Ensures strong typing and improved code reliability for a robust backend.
-* Express.js: Provides a fast and minimal framework for building the server and API endpoints.
-* MongoDB: A scalable NoSQL database, perfect for managing dynamic product and order data.
-* Mongoose: Simplifies database interactions with MongoDB, offering a flexible schema-based solution.
-* Zod Validation: Ensures data integrity by validating inputs at runtime for safer and more predictable API behavior.
+* **Express.js**: Provides a fast and minimal framework for building the server and API endpoints.
+* **MongoDB**: A scalable NoSQL database, perfect for managing dynamic product and order data.
+* **Mongoose**: Simplifies database interactions with MongoDB, offering a flexible schema-based solution.
+* **Zod Validation**: Ensures data integrity by validating inputs at runtime for safer and more predictable API behavior.
 
 ## Software system pattter
 
