@@ -8,18 +8,17 @@ The Bike Store Server is a backend application designed to manage a bike store's
 
 ### Here is the step by step process
 
+* Step One
+
 ```
 git clone https://github.com/mdshahadad/bike-store.git
 ```
 
-### Installing
+* Step two
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+Install all the dependencies
 ```
-Give the example
+npm install
 ```
 
 And repeat
