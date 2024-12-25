@@ -32,19 +32,22 @@ npm run start
 npm run start:dev
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+## Technology i used for this project
 
-Explain how to run the automated tests for this system
+* Typscript
+* ExpressJs
+* MongoDB
+* Mongoose
+* Zod
 
-### Break down into end to end tests
+### Software system pattter
 
-Explain what these tests test and why
+* Modular
 
-```
-Give an example
-```
+## Deployment
+
+* Vercel
 
 ### And coding style tests
 
