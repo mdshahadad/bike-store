@@ -6,14 +6,12 @@ The Bike Store Server is a backend application designed to manage a bike store's
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* How to run to server locally
 
-### Prerequisites
-
-What things you need to install the software and how to install them
+### Step One
 
 ```
-Give examples
+git clone https://github.com/mdshahadad/bike-store.git
 ```
 
 ### Installing
