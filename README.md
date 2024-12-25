@@ -4,11 +4,9 @@
 The Bike Store Server is a backend application designed to manage a bike store's operations efficiently. It features full CRUD functionality for products, allowing complete control over inventory. Additionally, the server supports order management with endpoints to create orders and calculate the total revenue. This lightweight and focused design ensures seamless handling of both product data and sales metrics.
 
 
-## Getting Started
+## How to run the server locally
 
-* How to run to server locally
-
-### Step One
+### Here is the step by step process
 
 ```
 git clone https://github.com/mdshahadad/bike-store.git
