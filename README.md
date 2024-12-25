@@ -21,10 +21,15 @@ Install all the dependencies
 npm install
 ```
 
-And repeat
+* Step three
 
 ```
-until finished
+npm run start
+```
+### OR
+
+```
+npm run start:dev
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
